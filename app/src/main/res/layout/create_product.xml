@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Product name"
+        android:textSize="15dp"
+        android:paddingLeft="15dp"
+        android:paddingTop="15dp"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/product_name"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Price"
+        android:textSize="15dp"
+        android:paddingLeft="15dp"
+        android:paddingTop="15dp"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/price"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Description"
+        android:textSize="15dp"
+        android:paddingLeft="15dp"
+        android:paddingTop="15dp"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/description"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:lines="4"
+
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/create_new_product"
+        android:text="Create product"/>
+
+</LinearLayout>

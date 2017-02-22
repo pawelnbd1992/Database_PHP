@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Database_PHP</string>
+    <string name="button1">Wszystkie produkty</string>
+    <string name="button2">Stwórz produkt</string>
+</resources>
