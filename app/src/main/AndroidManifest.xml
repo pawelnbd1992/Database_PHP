@@ -1,15 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.pawel.database_php">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".SignInActivity"></activity>
+        <activity
+            android:name=".CreateProductsActivity"
+            android:label="Add New Product" />
+        <activity
+            android:name=".EditProduct"
+            android:label="Edit sProduct" />
+        <activity
+            android:name=".All_product"
+            android:label=" All product" />
+        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".Your_Songs"
+            android:label="@string/title_activity_your__songs"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,22 +33,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CreateProductsActivity"
-            android:label="Add New Product" >
+            android:name=".SignUp"
+            android:parentActivityName=".SignInActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".SignInActivity" />
         </activity>
-        <activity
-            android:name=".EditProduct"
-            android:label="Edit sProduct" >
-        </activity>
-        <activity
-            android:name=".All_product"
-            android:label=" All product" >
-        </activity>
-        <activity
-            android:name=".Texts"
-            android:label="Texts">
-
-        </activity>
+        <activity android:name=".Texts"></activity>
     </application>
 
 </manifest>

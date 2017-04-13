@@ -22,5 +22,11 @@
         android:id="@+id/button_create_new_product"
         android:text="@string/button2"
         android:layout_marginTop="50dp"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/button_your_songs"
+        android:text="Your songs"
+        android:layout_marginTop="100dp"/>
 
 </RelativeLayout>

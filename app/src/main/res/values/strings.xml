@@ -1,5 +1,8 @@
 <resources>
-    <string name="app_name">Database_PHP</string>
+    <string name="app_name">SongSong</string>
     <string name="button1">Wszystkie produkty</string>
     <string name="button2">Stwórz produkt</string>
+    <string name="title_activity_your__songs">Your_Songs</string>
+    <string name="logout">Wyloguj</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>
