@@ -22,7 +22,7 @@ public class Texts extends Activity {
             if(extras!=null){
                 title_of_song= extras.getString(TITLE_OF_SONG);
             };
-        String pdf_url = "http://docs.google.com/gview?embedded=true&url=http://localhost/android/pdf/wymarzona.pdf";
+        String pdf_url = "http://docs.google.com/gview?embedded=true&url=http://pawelnbd.ayz.pl/pdf/wymarzona.pdf";
         WebView webView = (WebView) findViewById(R.id.webwiew);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setAllowFileAccess(true);

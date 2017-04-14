@@ -1,7 +1,5 @@
 package com.pawel.database_php;
 
-
-
   import com.google.gson.annotations.Expose;
   import com.google.gson.annotations.SerializedName;
 
