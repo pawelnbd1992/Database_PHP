@@ -24,9 +24,7 @@ public class All_product extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.all_product);
-
-        String baseUrl = "http://pawelnbd.ayz.pl/";
-        getAllSongs(baseUrl);
+        getAllSongs();
         listView = getListView();
 
         getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -40,9 +38,9 @@ public class All_product extends ListActivity {
 
     }
 
-    private void getAllSongs(String baseUrl) {
-
-        Retrofit.Builder builder = getRetrofitBuilder(baseUrl);
+    private void getAllSongs() {
+        RetrofitBuilder retrofitBuilder = new RetrofitBuilder();
+        Retrofit.Builder builder = retrofitBuilder.getBuilder();
         Retrofit retrofit = builder.build();
         MyWebService client = retrofit.create(MyWebService.class);
         Call<DataBody> call = client.getAllProduct();
@@ -73,9 +71,7 @@ public class All_product extends ListActivity {
         };
     }
 
-    private Retrofit.Builder getRetrofitBuilder(String basePath) {
-        return new Retrofit.Builder().baseUrl(basePath);
-    }
+
 
 
 }
