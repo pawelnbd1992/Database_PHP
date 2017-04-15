@@ -1,20 +1,16 @@
 package com.pawel.database_php;
 
-import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -22,9 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -40,7 +34,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Your_Songs extends AppCompatActivity {
 
@@ -131,20 +124,16 @@ public class Your_Songs extends AppCompatActivity {
      super.onStart();
         auth.addAuthStateListener(authStateListener);
     }
-
+//--------------class Fragment1--------------------//
     public static class Fragment1 extends Fragment {
 
         public static final String TITLE_OF_SONG = "TITLE_OF_SONG";
         private static final String ARG_SECTION_NUMBER = "section_number";
-        SaveAdapter saveAdapter = new SaveAdapter();
+
 
         public Fragment1() {
         }
 
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
 
         public static Fragment1 newInstance(int sectionNumber) {
             Fragment1 fragment = new Fragment1();
@@ -159,7 +148,7 @@ public class Your_Songs extends AppCompatActivity {
 
 
             int tab = getArguments().getInt(ARG_SECTION_NUMBER);
-            ProductAdapter productAdapter = null;
+
 
 
             switch (tab){
@@ -192,18 +181,12 @@ public class Your_Songs extends AppCompatActivity {
 
                       List<DataBody.Product> list_of_products = new ArrayList<>(response.body().getProduct());
 
-
-
                         if (list_of_products != null) {
 
                             ProductAdapter productAdapter = new ProductAdapter(getActivity().getApplicationContext(), list_of_products);
                             listView.setAdapter(productAdapter);
                             SearchSong(editText,productAdapter);
                             getListView(listView);
-
-
-                          //  saveAdapter.setProducts(list_of_products);
-
 
                                                     }
                                                 }
@@ -212,7 +195,6 @@ public class Your_Songs extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<DataBody> call, Throwable t) {
-                    //Toast.makeText(All_product.this, t.toString(), Toast.LENGTH_SHORT).show();
 
                 }
             });
@@ -233,11 +215,9 @@ public class Your_Songs extends AppCompatActivity {
 
         }
 
-
         private MyWebService getMyWebService() {
-            Retrofit.Builder builder = new Retrofit.Builder().
-                    baseUrl("http://10.0.2.2/android/").
-                    addConverterFactory(GsonConverterFactory.create());
+            RetrofitBuilder retrofitBuilder = new RetrofitBuilder();
+            Retrofit.Builder builder = retrofitBuilder.getBuilder();
             Retrofit retrofit = builder.build();
             return retrofit.create(MyWebService.class);
         }
@@ -246,8 +226,6 @@ public class Your_Songs extends AppCompatActivity {
             search_song.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int i, int i1, int i2) {
-
-
 
 
                 }
@@ -280,8 +258,7 @@ public class Your_Songs extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a Fragment1 (defined as a static inner class below).
+
             return Fragment1.newInstance(position + 1);
         }
 
