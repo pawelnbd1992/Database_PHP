@@ -1,16 +1,20 @@
 package com.pawel.database_php;
 
+import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -18,7 +22,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -34,6 +40,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Your_Songs extends AppCompatActivity {
 
@@ -106,8 +113,10 @@ public class Your_Songs extends AppCompatActivity {
 
             signout();
             Intent intent = new Intent(context,SignInActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
             startActivity(intent);
-            Your_Songs.this.finish();
 
             return true;
         }
@@ -124,16 +133,20 @@ public class Your_Songs extends AppCompatActivity {
      super.onStart();
         auth.addAuthStateListener(authStateListener);
     }
-//--------------class Fragment1--------------------//
+
     public static class Fragment1 extends Fragment {
 
-        public static final String TITLE_OF_SONG = "TITLE_OF_SONG";
+        public static final String URL_OF_SONG = "URL_OF_SONG";
         private static final String ARG_SECTION_NUMBER = "section_number";
-
+        SaveAdapter saveAdapter = new SaveAdapter();
 
         public Fragment1() {
         }
 
+        /**
+         * Returns a new instance of this fragment for the given section
+         * number.
+         */
 
         public static Fragment1 newInstance(int sectionNumber) {
             Fragment1 fragment = new Fragment1();
@@ -148,14 +161,14 @@ public class Your_Songs extends AppCompatActivity {
 
 
             int tab = getArguments().getInt(ARG_SECTION_NUMBER);
-
+            ProductAdapter productAdapter = null;
 
 
             switch (tab){
                 case 1:
                     View rootView = inflater.inflate(R.layout.fragment_your__songs, container, false);
                     ListView listView = (ListView) rootView.findViewById(R.id.list_of_songs);
-                    MyWebService client = getMyWebService();
+                    MyWebService client = new RetrofitBuilder().getMyWebService();
                     Call<DataBody> call = getDataBodyCall(client);
                     EditText search_song = (EditText) rootView.findViewById(R.id.search_song);
                     getAllSongs(listView, call,search_song);
@@ -190,7 +203,6 @@ public class Your_Songs extends AppCompatActivity {
 
                                                     }
                                                 }
-
                 }
 
                 @Override
@@ -205,29 +217,26 @@ public class Your_Songs extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                  String name = ((TextView) view.findViewById(R.id.name_all_products)).getText().toString();
-                    Toast.makeText(getContext(),"Pozycja "+name,Toast.LENGTH_SHORT).show();
+                  String title_of_song = ((TextView) view.findViewById(R.id.name_all_products)).getText().toString();
+                    String url =createURL(title_of_song);
                     Intent intent = new Intent(getContext(),Texts.class);
-                    intent.putExtra(TITLE_OF_SONG,name);
+                    intent.putExtra(URL_OF_SONG,url);
                     startActivity(intent);
                 }
             });
 
         }
 
-        private MyWebService getMyWebService() {
-            RetrofitBuilder retrofitBuilder = new RetrofitBuilder();
-            Retrofit.Builder builder = retrofitBuilder.getBuilder();
-            Retrofit retrofit = builder.build();
-            return retrofit.create(MyWebService.class);
+        private String createURL(String title_of_song) {
+            title_of_song = "http://pawelnbd.ayz.pl/pdf/"+title_of_song+".pdf";
+            return title_of_song;
         }
+
 
         private void SearchSong(EditText search_song , final ProductAdapter productAdapter) {
             search_song.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int i, int i1, int i2) {
-
-
                 }
 
                 @Override
@@ -235,17 +244,14 @@ public class Your_Songs extends AppCompatActivity {
 
                     productAdapter.getFilter().filter(s);
 
-
                 }
 
                 @Override
                 public void afterTextChanged(Editable editable) {
 
-
                 }
             });
         }
-
 
     }
 
@@ -258,7 +264,8 @@ public class Your_Songs extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-
+            // getItem is called to instantiate the fragment for the given page.
+            // Return a Fragment1 (defined as a static inner class below).
             return Fragment1.newInstance(position + 1);
         }
 

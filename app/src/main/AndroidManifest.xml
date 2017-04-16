@@ -25,7 +25,8 @@
         <activity
             android:name=".Your_Songs"
             android:label="@string/title_activity_your__songs"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

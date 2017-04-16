@@ -1,6 +1,7 @@
 package com.pawel.database_php;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ public class SignInActivity extends AppCompatActivity {
     private Button register_button, login_button;
     private EditText email_edit_text;
     private EditText password_edit_text;
+    private Boolean exit = false;
 
 
 
@@ -143,6 +145,24 @@ public class SignInActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         auth.addAuthStateListener(authStateListener);
+    }
+    @Override
+    public void onBackPressed() {
+        if (exit) {
+            finish(); // finish activity
+        } else {
+            Toast.makeText(this, "Press Back again to Exit.",
+                    Toast.LENGTH_SHORT).show();
+            exit = true;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    exit = false;
+                }
+            }, 3 * 1000);
+
+        }
+
     }
 
 

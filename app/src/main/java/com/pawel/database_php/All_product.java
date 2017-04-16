@@ -40,12 +40,12 @@ public class All_product extends ListActivity {
 
     private void getAllSongs() {
         RetrofitBuilder retrofitBuilder = new RetrofitBuilder();
-        Retrofit.Builder builder = retrofitBuilder.getBuilder();
-        Retrofit retrofit = builder.build();
-        MyWebService client = retrofit.create(MyWebService.class);
-        Call<DataBody> call = client.getAllProduct();
+      //  Retrofit.Builder builder = retrofitBuilder.g();
+       // Retrofit retrofit = builder.build();
+       // MyWebService client = retrofit.create(MyWebService.class);
+       // Call<DataBody> call = client.getAllProduct();
         Callback<DataBody> dataBodyCallback = getDataBodyCallback();
-        call.enqueue(dataBodyCallback);
+      //  call.enqueue(dataBodyCallback);
     }
 
     private Callback<DataBody> getDataBodyCallback() {
