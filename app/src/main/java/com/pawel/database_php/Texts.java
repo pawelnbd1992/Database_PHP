@@ -1,8 +1,10 @@
 package com.pawel.database_php;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 
 public class Texts extends Activity {
@@ -29,4 +31,6 @@ public class Texts extends Activity {
 
 
     }
+
+
 }

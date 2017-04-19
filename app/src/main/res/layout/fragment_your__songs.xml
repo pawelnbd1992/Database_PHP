@@ -7,17 +7,29 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     tools:context=".Your_Songs$Fragment1"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+        android:orientation="horizontal">
+                    <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/search_song"
+                    android:hint="Search song..."
+                    android:layout_weight="1"
 
-     android:layout_height="match_parent" android:layout_width="match_parent">
+                    />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/search_song"
-        android:hint="Search song..."
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Dodaj piosenkę "
+                        android:id="@+id/add_song_button"
+                        android:layout_weight="1"/>
 
-        />
-
+    </LinearLayout>
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

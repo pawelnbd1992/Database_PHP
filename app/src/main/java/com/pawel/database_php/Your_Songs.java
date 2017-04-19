@@ -1,20 +1,18 @@
 package com.pawel.database_php;
 
-import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -22,9 +20,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -39,8 +36,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Your_Songs extends AppCompatActivity {
 
@@ -138,6 +133,7 @@ public class Your_Songs extends AppCompatActivity {
 
         public static final String URL_OF_SONG = "URL_OF_SONG";
         private static final String ARG_SECTION_NUMBER = "section_number";
+        private Button add_song_button;
       //  SaveAdapter saveAdapter = new SaveAdapter();
 
         public Fragment1() {
@@ -159,10 +155,7 @@ public class Your_Songs extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-
             int tab = getArguments().getInt(ARG_SECTION_NUMBER);
-            ProductAdapter productAdapter = null;
-
 
             switch (tab){
                 case 1:
@@ -172,6 +165,8 @@ public class Your_Songs extends AppCompatActivity {
                     Call<DataBody> call = getDataBodyCall(client);
                     EditText search_song = (EditText) rootView.findViewById(R.id.search_song);
                     getAllSongs(listView, call,search_song);
+                    add_song_button = (Button) rootView.findViewById(R.id.add_song_button);
+                    AddNewSong(add_song_button);
                     return rootView;
 
                 case 2:
@@ -179,6 +174,17 @@ public class Your_Songs extends AppCompatActivity {
             }
 
            return null;
+        }
+
+        private void AddNewSong(Button add_song_button) {
+            add_song_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Popup popup = Popup.newInstance();
+                    popup.show(getFragmentManager(),"dialog");
+
+                }
+            });
         }
 
         private Call<DataBody> getDataBodyCall(MyWebService client) {
@@ -288,4 +294,7 @@ public class Your_Songs extends AppCompatActivity {
             return null;
         }
     }
+
+
+
 }
