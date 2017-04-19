@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -22,16 +21,12 @@ public class ProductAdapter extends ArrayAdapter<DataBody.Product> implements Fi
     private List <DataBody.Product>originalProducts;
 
 
-
-
     public ProductAdapter(Context context, List<DataBody.Product> products)   {
         super(context,R.layout.list_item, products);
         this.context=context;
         this.products=products;
         originalProducts =products;
-
     }
-
 
     @Override
     public int getCount() {
@@ -40,18 +35,26 @@ public class ProductAdapter extends ArrayAdapter<DataBody.Product> implements Fi
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         View row=convertView;
+        ViewHolder viewHolder;
         if (row == null) {
             LayoutInflater inflater =
                     (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             row = inflater.inflate(R.layout.list_item, parent, false);
+            viewHolder = new ViewHolder();
+            viewHolder.title_of_song= (TextView) row.findViewById(R.id.name_all_products);
+            row.setTag(viewHolder);
+        }else{
+            viewHolder = (ViewHolder) row.getTag();
         }
 
-        TextView textView = (TextView) row.findViewById(R.id.name_all_products);
+        //TextView textView = (TextView) row.findViewById(R.id.name_all_products);
 
         DataBody.Product item = products.get(position);
         String message = item.getName();
-        textView.setText(message);
+        viewHolder.title_of_song.setText(message);
+        //textView.setText(message);
 
         return row;
     }
@@ -75,16 +78,11 @@ public class ProductAdapter extends ArrayAdapter<DataBody.Product> implements Fi
                   previousLength= constraint.length();
               }
 
-
-
               for(DataBody.Product p :products){
                   if(p.getName().toUpperCase().startsWith(constraint.toString().toUpperCase())){
 
                       tempproducts.add(p);
-
-
                   }
-
               }
 
               filterResults.values = tempproducts;
@@ -108,5 +106,7 @@ public class ProductAdapter extends ArrayAdapter<DataBody.Product> implements Fi
 
     };
 
-
+private static class ViewHolder{
+    TextView title_of_song;
+}
 }

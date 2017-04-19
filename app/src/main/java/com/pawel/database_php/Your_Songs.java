@@ -138,7 +138,7 @@ public class Your_Songs extends AppCompatActivity {
 
         public static final String URL_OF_SONG = "URL_OF_SONG";
         private static final String ARG_SECTION_NUMBER = "section_number";
-        SaveAdapter saveAdapter = new SaveAdapter();
+      //  SaveAdapter saveAdapter = new SaveAdapter();
 
         public Fragment1() {
         }
