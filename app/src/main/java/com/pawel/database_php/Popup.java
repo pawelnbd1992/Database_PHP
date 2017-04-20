@@ -8,9 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 
-/**
- * Created by Paweł on 2017-04-19.
- */
+
 public class Popup extends DialogFragment{
 
     public static Popup newInstance(){

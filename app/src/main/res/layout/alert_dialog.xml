@@ -12,4 +12,57 @@
         android:textSize="20sp"
         android:textStyle="bold"
         android:layout_marginTop="10dp"/>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp">
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="otwórz..."
+        android:id="@+id/open_folder_button"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:id="@+id/uri_button"
+        android:layout_weight="5" />
+
+
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="100dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PRZEŚLIJ PLIK"
+            android:id="@+id/send_file_text_view"
+            android:layout_weight="5" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ANULUJ"
+            android:id="@+id/cancel_text_view"
+            android:layout_weight="5" />
+
+
+
+    </LinearLayout>
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        android:layout_marginTop="10dp"
+        android:indeterminate="true"
+        />
+
+
 </LinearLayout>
