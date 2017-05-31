@@ -5,15 +5,13 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.view.View
-import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_sign_up.*
+import org.jetbrains.anko.toast
 
 class SignUp : AppCompatActivity() {
 
-
     private var auth: FirebaseAuth? = null
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,12 +20,13 @@ class SignUp : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-        sign_up_email?.setText("lidner12@gmail.com")
-        sign_up_password?.setText("szlendak1992")
-        sign_up_repeat_password?.setText("szlendak1992")
+        sign_up_email.setText("lidner12@gmail.com")
+        sign_up_password.setText("szlendak1992")
+        sign_up_repeat_password.setText("szlendak1992")
 
 
         sign_up_button.setOnClickListener(View.OnClickListener {
+
 
             val email = sign_up_email.text.toString();
             val password = sign_up_password.text.toString();
@@ -35,29 +34,28 @@ class SignUp : AppCompatActivity() {
 
 
             if (TextUtils.isEmpty(email)) {
-                Toast.makeText(applicationContext, "Enter email address!", Toast.LENGTH_SHORT).show()
+               toast("Enter email address!");
                 return@OnClickListener
             }
 
             if (TextUtils.isEmpty(password)) {
-                Toast.makeText(applicationContext, "Enter password!", Toast.LENGTH_SHORT).show()
+                toast("Enter password!");
                 return@OnClickListener
             }
 
             if (password != password_repeat) {
-                Toast.makeText(applicationContext, "Passwords are different!", Toast.LENGTH_SHORT).show()
+                toast("Passwords are different!");
                 return@OnClickListener
             }
 
 
             auth!!.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(applicationContext, "Użytkownik " + task.result.user.email!!.toString() + " zarejestrowany!", Toast.LENGTH_SHORT).show()
+                    toast("User ${task.result.user.email.toString()} is register!")
                     setResult(Activity.RESULT_OK)
                     finish()
                 } else {
-                    sign_up_email?.setText(task.exception!!.toString())
-
+                    toast(task.exception.toString())
                 }
             }
         })

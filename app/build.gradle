@@ -51,6 +51,12 @@ dependencies {
     compile 'com.nbsp:library:1.2'
     compile 'com.nbsp:library:1.09'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile 'org.jetbrains.anko:anko-sdk15:0.8.3'
+    compile 'org.jetbrains.anko:anko-appcompat-v7:0.8.3'
+    compile 'org.jetbrains.anko:anko-support-v4:0.8.3'
+
+
+
 
 }
 apply plugin: 'com.google.gms.google-services'

@@ -47,7 +47,7 @@ public class CreateProductsActivity extends Activity {
         Button btnCreateProduct = (Button) findViewById(R.id.create_new_product);
 
         // button click event
-        btnCreateProduct.setOnClickListener(new View.OnClickListener() {
+        btnCreateProduct.setOnClickListener( new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
