@@ -1,8 +1,18 @@
-*.iml
-.gradle
-/local.properties
-/.idea/workspace.xml
-/.idea/libraries
+# Ignore OS files
+
+# Windows
+Thumbs.db
+
+# Linux
+.directory
+*~
+
+# MacOS
 .DS_Store
-/build
-/captures
+
+.gradle
+build
+
+/local.properties
+*.iml
+.idea

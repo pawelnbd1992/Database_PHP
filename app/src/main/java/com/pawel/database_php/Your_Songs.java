@@ -2,6 +2,7 @@ package com.pawel.database_php;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
@@ -13,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,9 +25,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.ipaulpro.afilechooser.utils.FileUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -130,6 +134,7 @@ public class Your_Songs extends AppCompatActivity {
 
         public static final String URL_OF_SONG = "URL_OF_SONG";
         private static final String ARG_SECTION_NUMBER = "section_number";
+        private static final int REQUEST_CHOOSER =1234 ;
         private Button add_song_button;
       //  SaveAdapter saveAdapter = new SaveAdapter();
 
@@ -177,11 +182,41 @@ public class Your_Songs extends AppCompatActivity {
             add_song_button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Popup popup = Popup.newInstance();
-                    popup.show(getFragmentManager(),"dialog");
+                    show();
 
                 }
             });
+        }
+
+        private void show() {
+            Intent getContentIntent = FileUtils.createGetContentIntent();
+
+            Intent intent = Intent.createChooser(getContentIntent, "Select a File");
+            startActivityForResult(intent,REQUEST_CHOOSER);
+        }
+
+        @Override
+        public void onActivityResult(int requestCode, int resultCode, Intent data) {
+            switch (requestCode) {
+                case REQUEST_CHOOSER:
+                    if (resultCode == RESULT_OK) {
+                        if (data != null) {
+                            // Get the URI of the selected file
+                            final Uri uri = data.getData();
+                            try {
+                                // Get the file path from the URI
+                                final String path = FileUtils.getPath(getActivity(), uri);
+
+                            } catch (Exception e) {
+
+                            }
+                        }
+                    }
+                    break;
+            }
+
+
+            super.onActivityResult(requestCode, resultCode, data);
         }
 
         private Call<DataBody> getDataBodyCall(MyWebService client) {
