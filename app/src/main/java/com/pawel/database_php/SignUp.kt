@@ -33,7 +33,7 @@ class SignUp : AppCompatActivity() {
             val password_repeat = sign_up_repeat_password.text.toString();
 
 
-            if (TextUtils.isEmpty(email)) {
+            if (email.isEmpty()) {
                toast("Enter email address!");
                 return@OnClickListener
             }
@@ -59,6 +59,7 @@ class SignUp : AppCompatActivity() {
                 }
             }
         })
+
 
 
     }

@@ -19,7 +19,7 @@
             android:name=".EditProduct"
             android:label="Edit sProduct" />
         <activity
-            android:name=".All_product"
+            android:name=".AllProductActivity"
             android:label=" All product" />
         <activity android:name=".MainActivity" />
         <activity
