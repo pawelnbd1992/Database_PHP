@@ -55,6 +55,7 @@ dependencies {
     compile 'org.jetbrains.anko:anko-appcompat-v7:0.8.3'
     compile 'org.jetbrains.anko:anko-support-v4:0.8.3'
     compile project(':aFileChooser');
+    compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'
 
 
 

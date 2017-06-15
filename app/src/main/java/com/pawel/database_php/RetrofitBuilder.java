@@ -1,6 +1,8 @@
 package com.pawel.database_php;
 
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -13,11 +15,18 @@ public class RetrofitBuilder{
     private Retrofit retrofit;
      private MyWebService myWebService;
 
+
+
+
+
     public RetrofitBuilder() {
         this.baseUrl ="http://pawelnbd.ayz.pl/";
     }
     public MyWebService getMyWebService() {
-        builder = new Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create());
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+        builder = new Retrofit.Builder().baseUrl(baseUrl).client(client).addConverterFactory(GsonConverterFactory.create());
         retrofit = builder.build();
         myWebService =retrofit.create(MyWebService.class);
         return myWebService;
