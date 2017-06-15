@@ -7,6 +7,7 @@ import kotlinx.android.synthetic.main.activity_texts.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 
 class Texts : Activity() {
@@ -35,10 +36,17 @@ class Texts : Activity() {
 
                 if (response.isSuccessful) {
 
+                            //potrzebna zmiana na Kotlina
+                    val list_of_products :ArrayList<DataBody.Product>?
+                    list_of_products = response.body().getProduct();
+                    if (list_of_products != null) {
 
-                    val textOfSong = response.body().getSong().toString()
-                    song_et?.setText(textOfSong)
+                        song_et?.setText(list_of_products.get(2).textOfSong)
 
+
+                    }else{
+                        song_et?.setText("cos jest nulem")
+                    }
 
 
 
@@ -54,7 +62,7 @@ class Texts : Activity() {
     }
 
     private fun  getTextOfSong(client: MyWebService?): Call<DataBody> {
-      return client!!.getProductDetails(pid_of_song)
+      return client!!.getProductDetails()
     }
 
     companion object {
@@ -63,3 +71,4 @@ class Texts : Activity() {
 
 
 }
+

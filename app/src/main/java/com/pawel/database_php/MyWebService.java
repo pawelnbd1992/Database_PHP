@@ -10,8 +10,9 @@ import retrofit2.http.Query;
 
 public interface MyWebService {
 
-    @GET("get_product_details.php?")
-    Call<DataBody> getProductDetails(@Query("pid")String pid);
+    @GET("get_product_details.php?pid=1")
+    Call<DataBody> getProductDetails();
+    // Call<DataBody> getProductDetails(@Query("pid")String pid);
 
 
     @GET("get_all_product.php")
