@@ -7,7 +7,6 @@ import kotlinx.android.synthetic.main.activity_texts.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
 
 
 class Texts : Activity() {
@@ -36,8 +35,9 @@ class Texts : Activity() {
 
                 if (response.isSuccessful) {
 
-                    val list_of_products = ArrayList(response.body().getProduct())
-                    
+
+                    val textOfSong = response.body().getSong().toString()
+                    song_et?.setText(textOfSong)
 
 
 
@@ -46,6 +46,8 @@ class Texts : Activity() {
             }
 
             override fun onFailure(call: Call<DataBody>, t: Throwable) {
+
+                song_et?.setText("Mamy jakis blad")
 
             }
         })

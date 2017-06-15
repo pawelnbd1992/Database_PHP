@@ -10,10 +10,13 @@ class DataBody {
     @SerializedName("products")
     @Expose
     private val product: ArrayList<Product>? = null
-
     fun getProduct(): ArrayList<Product>? {
         return product
     }
+    fun getSong():String?{
+        return DataBody.Product().textOfSong
+    }
+
 
 
     class Product {
@@ -37,12 +40,8 @@ class DataBody {
 
         @SerializedName("tekst")
         @Expose
-        var textOfSong: String? = null
+        var textOfSong: String? = ""
 
-
-        fun song():String{
-            return textOfSong.toString()
-        }
 
     }
 
