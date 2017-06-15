@@ -3,7 +3,6 @@ package com.pawel.database_php
 import android.app.Activity
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.text.TextUtils
 import android.view.View
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_sign_up.*
@@ -28,7 +27,7 @@ class SignUp : AppCompatActivity() {
         sign_up_button.setOnClickListener(View.OnClickListener {
 
 
-            val email = sign_up_email.text.toString();
+            val email = sign_up_email.text.toString()
             val password = sign_up_password.text.toString();
             val password_repeat = sign_up_repeat_password.text.toString();
 
@@ -38,7 +37,7 @@ class SignUp : AppCompatActivity() {
                 return@OnClickListener
             }
 
-            if (TextUtils.isEmpty(password)) {
+            if (password.isEmpty()) {
                 toast("Enter password!");
                 return@OnClickListener
             }

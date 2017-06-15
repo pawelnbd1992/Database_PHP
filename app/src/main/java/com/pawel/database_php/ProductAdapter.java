@@ -44,6 +44,7 @@ public class ProductAdapter extends ArrayAdapter<DataBody.Product> implements Fi
             row = inflater.inflate(R.layout.list_item, parent, false);
             viewHolder = new ViewHolder();
             viewHolder.title_of_song= (TextView) row.findViewById(R.id.name_all_products);
+            viewHolder.pid = (TextView) row.findViewById(R.id.pid);
             row.setTag(viewHolder);
         }else{
             viewHolder = (ViewHolder) row.getTag();
@@ -108,5 +109,6 @@ public class ProductAdapter extends ArrayAdapter<DataBody.Product> implements Fi
 
 private static class ViewHolder{
     TextView title_of_song;
+    TextView pid;
 }
 }

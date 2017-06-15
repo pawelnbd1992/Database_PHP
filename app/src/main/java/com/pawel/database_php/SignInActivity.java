@@ -45,12 +45,12 @@ public class SignInActivity extends AppCompatActivity {
         register_button = (Button) findViewById(R.id.register_button);
 
         authStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if(user!=null){
-                    Intent intent = new Intent(SignInActivity.this,Your_Songs.class);
-                    startActivity(intent);
+                        @Override
+                        public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                            FirebaseUser user = firebaseAuth.getCurrentUser();
+                            if(user!=null){
+                                Intent intent = new Intent(SignInActivity.this, YourSongsActivity.class);
+                                startActivity(intent);
                     finish();
 
                 }else {
@@ -126,7 +126,7 @@ public class SignInActivity extends AppCompatActivity {
                 public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                    FirebaseUser user = firebaseAuth.getCurrentUser();
                     if(user!=null){
-                      Intent intent = new Intent(getApplicationContext(),Your_Songs.class);
+                      Intent intent = new Intent(getApplicationContext(), YourSongsActivity.class);
                         startActivity(intent);
                         finish();
                     }

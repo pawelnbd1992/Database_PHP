@@ -1,9 +1,7 @@
 package com.pawel.database_php
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
@@ -14,31 +12,19 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
-import android.widget.AdapterView
+import android.view.*
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ListView
 import android.widget.TextView
-import android.widget.Toast
-
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.ipaulpro.afilechooser.utils.FileUtils
-import kotlinx.android.synthetic.main.fragment_your__songs.*
-
-import java.util.ArrayList
-
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
-class Your_Songs : AppCompatActivity() {
+class YourSongsActivity : AppCompatActivity() {
 
 
     private var mSectionsPagerAdapter: SectionsPagerAdapter? = null
@@ -55,9 +41,9 @@ class Your_Songs : AppCompatActivity() {
             if (user != null) {
 
             } else {
-                val intent = Intent(this@Your_Songs, SignInActivity::class.java)
+                val intent = Intent(this@YourSongsActivity, SignInActivity::class.java)
                 startActivity(intent)
-                this@Your_Songs.finish()
+                this@YourSongsActivity.finish()
                 return@AuthStateListener
 
 
@@ -188,8 +174,7 @@ class Your_Songs : AppCompatActivity() {
 
                     if (response.isSuccessful) {
 
-                        val list_of_products = ArrayList(response.body().product)
-
+                        val list_of_products = ArrayList(response.body().getProduct())
                         if (list_of_products != null) {
 
                             val productAdapter = ProductAdapter(activity.applicationContext, list_of_products)
@@ -210,10 +195,9 @@ class Your_Songs : AppCompatActivity() {
         private fun getListView(listView: ListView) {
             listView.setOnItemClickListener { adapterView, view, i, l ->
 
-                    val title_of_song = (view.findViewById(R.id.name_all_products) as TextView).text.toString()
-                    val url = createURL(title_of_song)
+                    val pidOfSong = (view.findViewById(R.id.pid) as TextView).text.toString()
                     val intent = Intent(context, Texts::class.java)
-                    intent.putExtra(URL_OF_SONG, url)
+                    intent.putExtra(PID_OF_SONG, pidOfSong)
                     startActivity(intent)
                 }
             }
@@ -222,7 +206,7 @@ class Your_Songs : AppCompatActivity() {
 
         private fun createURL(title_of_song: String): String {
             var title_of_song = title_of_song
-            title_of_song = "http://pawelnbd.ayz.pl/pdf/$title_of_song.pdf"
+            title_of_song = "http://pawelnbd.ayz.pl/pdf/$title_of_song.php"
             return title_of_song
         }
 
@@ -246,7 +230,7 @@ class Your_Songs : AppCompatActivity() {
 
         companion object {
 
-            val URL_OF_SONG = "URL_OF_SONG"
+            val PID_OF_SONG = "PID_OF_SONG"
             private val ARG_SECTION_NUMBER = "section_number"
             private val REQUEST_CHOOSER = 1234
 

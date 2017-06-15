@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         button_your_songs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(),Your_Songs.class);
+                Intent i = new Intent(getApplicationContext(), YourSongsActivity.class);
                 startActivity(i);
             }
         });

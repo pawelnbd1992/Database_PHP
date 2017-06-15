@@ -2,11 +2,7 @@ package com.pawel.database_php;
 
 
 import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -57,7 +53,8 @@ public class CreateProductsActivity extends Activity {
                 String price = inputPrice.getText().toString();
                 String description = inputDesc.getText().toString();
 
-                DataBody.Product product = new DataBody.Product(name, price, description);
+
+                //DataBody.Product product = new DataBody.Product(name, price, description,null,null);
 
                 sendRequestBody(name,price,description);
                 Toast.makeText(CreateProductsActivity.this,"OK",Toast.LENGTH_SHORT).show();

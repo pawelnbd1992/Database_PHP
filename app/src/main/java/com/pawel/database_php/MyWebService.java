@@ -5,12 +5,13 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 
 public interface MyWebService {
 
-    @GET("get_product_details.php?pid=2")
-    Call<DataBody> getData();
+    @GET("get_product_details.php?")
+    Call<DataBody> getProductDetails(@Query("pid")String pid);
 
 
     @GET("get_all_product.php")

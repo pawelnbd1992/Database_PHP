@@ -23,7 +23,7 @@
             android:label=" All product" />
         <activity android:name=".MainActivity" />
         <activity
-            android:name=".Your_Songs"
+            android:name=".YourSongsActivity"
             android:label="@string/title_activity_your__songs"
             android:theme="@style/AppTheme.NoActionBar"
             android:noHistory="true">

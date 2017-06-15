@@ -6,7 +6,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context=".Your_Songs$Fragment1"
+    tools:context=".YourSongsActivity$Fragment1"
     android:layout_height="match_parent"
     android:layout_width="match_parent">
     <LinearLayout
