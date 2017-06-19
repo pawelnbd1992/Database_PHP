@@ -55,6 +55,8 @@ public class ProductAdapter extends ArrayAdapter<DataBody.Product> implements Fi
         DataBody.Product item = products.get(position);
         String message = item.getName();
         viewHolder.title_of_song.setText(message);
+        int id = item.getPid();
+        viewHolder.pid.setText(Integer.toString(id));
         //textView.setText(message);
 
         return row;

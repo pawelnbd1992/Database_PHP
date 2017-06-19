@@ -9,7 +9,7 @@ class DataBody {
 
     @SerializedName("products")
     @Expose
-    private val product: ArrayList<Product>?= null
+    private var product: ArrayList<Product>?= null
 
     fun getProduct(): ArrayList<Product>? {
         return product
@@ -20,7 +20,9 @@ class DataBody {
 
     class Product {
 
-
+        @SerializedName("pid")
+        @Expose
+        var pid: Int? = null
 
         @SerializedName("name")
         @Expose

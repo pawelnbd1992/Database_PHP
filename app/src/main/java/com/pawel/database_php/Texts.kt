@@ -25,7 +25,7 @@ class Texts : Activity() {
         }
 
         val client = RetrofitBuilder().myWebService
-        val call = getTextOfSong(client)
+        val call = getTextOfSong(client,pid_of_song)
         getText(call,song_et)
 
     }
@@ -37,11 +37,13 @@ class Texts : Activity() {
                 if (response.isSuccessful) {
 
                             //potrzebna zmiana na Kotlina
-                    val list_of_products :ArrayList<DataBody.Product>?
-                    list_of_products = response.body().getProduct();
+                   //val list_of_products :ArrayList<DataBody.Product>?
+                    val list_of_products = ArrayList(response.body().getProduct())
+
                     if (list_of_products != null) {
 
-                        song_et?.setText(list_of_products.get(2).textOfSong)
+                        song_et?.setText(list_of_products.get(0).textOfSong)
+
 
 
                     }else{
@@ -61,8 +63,8 @@ class Texts : Activity() {
         })
     }
 
-    private fun  getTextOfSong(client: MyWebService?): Call<DataBody> {
-      return client!!.getProductDetails()
+    private fun  getTextOfSong(client: MyWebService, pid:String): Call<DataBody> {
+      return client.getProductDetails(pid)
     }
 
     companion object {
