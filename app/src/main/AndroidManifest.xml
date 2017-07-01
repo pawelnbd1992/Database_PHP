@@ -11,19 +11,19 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SignInActivity"></activity>
+        <activity android:name=".view.auth.SignInActivity"></activity>
         <activity
-            android:name=".CreateProductsActivity"
+            android:name=".view.product.CreateProductsActivity"
             android:label="Add New Product" />
         <activity
-            android:name=".EditProduct"
+            android:name=".view.product.EditProductActivity"
             android:label="Edit sProduct" />
         <activity
             android:name=".AllProductActivity"
             android:label=" All product" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".view.main.MainActivity" />
         <activity
-            android:name=".YourSongsActivity"
+            android:name=".view.YourSongsActivity"
             android:label="@string/title_activity_your__songs"
             android:theme="@style/AppTheme.NoActionBar"
             android:noHistory="true">
@@ -34,13 +34,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SignUp"
-            android:parentActivityName=".SignInActivity">
+            android:name=".view.auth.SignUpActivity"
+            android:parentActivityName=".view.auth.SignInActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".SignInActivity" />
+                android:value=".view.auth.SignInActivity" />
         </activity>
-        <activity android:name=".Texts"></activity>
+        <activity android:name=".view.Texts"></activity>
     </application>
 
 </manifest>

@@ -1,14 +1,15 @@
-package com.pawel.database_php
+package com.pawel.database_php.view.auth
 
 import android.app.Activity
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.google.firebase.auth.FirebaseAuth
+import com.pawel.database_php.R
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import org.jetbrains.anko.toast
 
-class SignUp : AppCompatActivity() {
+class SignUpActivity : AppCompatActivity() {
 
     private var auth: FirebaseAuth? = null
 

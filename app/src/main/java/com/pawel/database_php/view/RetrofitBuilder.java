@@ -1,5 +1,7 @@
-package com.pawel.database_php;
+package com.pawel.database_php.view;
 
+
+import com.pawel.database_php.data.MyWebService;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;

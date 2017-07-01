@@ -1,4 +1,4 @@
-package com.pawel.database_php;
+package com.pawel.database_php.view.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
+
+import com.pawel.database_php.R;
+import com.pawel.database_php.data.DataBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +25,7 @@ public class ProductAdapter extends ArrayAdapter<DataBody.Product> implements Fi
 
 
     public ProductAdapter(Context context, List<DataBody.Product> products)   {
-        super(context,R.layout.list_item, products);
+        super(context, R.layout.list_item, products);
         this.context=context;
         this.products=products;
         originalProducts =products;

@@ -1,4 +1,4 @@
-package com.pawel.database_php;
+package com.pawel.database_php.view.auth;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +16,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.pawel.database_php.R;
+import com.pawel.database_php.view.YourSongsActivity;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -106,7 +108,7 @@ public class SignInActivity extends AppCompatActivity {
         register_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SignInActivity.this,SignUp.class);
+                Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
                 startActivityForResult(intent, REQUEST_CODE);
             }
         });

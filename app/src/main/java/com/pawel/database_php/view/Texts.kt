@@ -1,8 +1,12 @@
-package com.pawel.database_php
+package com.pawel.database_php.view
 
 import android.app.Activity
 import android.os.Bundle
-import android.widget.TextView
+import android.text.Html
+import com.pawel.database_php.R
+import com.pawel.database_php.view.RetrofitBuilder
+import com.pawel.database_php.data.DataBody
+import com.pawel.database_php.data.MyWebService
 import kotlinx.android.synthetic.main.activity_texts.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -26,11 +30,14 @@ class Texts : Activity() {
 
         val client = RetrofitBuilder().myWebService
         val call = getTextOfSong(client,pid_of_song)
-        getText(call,song_et)
+        getText(call)
+
+
+
 
     }
 
-    private fun  getText(call: Call<DataBody>, song_et: TextView?) {
+    private fun  getText(call: Call<DataBody>) {
         call.enqueue(object : Callback<DataBody> {
             override fun onResponse(call: Call<DataBody>, response: Response<DataBody>) {
 
@@ -42,7 +49,8 @@ class Texts : Activity() {
 
                     if (list_of_products != null) {
 
-                        song_et?.setText(list_of_products.get(0).textOfSong)
+                        song_et?.setText(Html.fromHtml(list_of_products.get(0).textOfSong))
+                        name_song_et?.setText(list_of_products.get(0).name)
 
 
 
@@ -73,4 +81,7 @@ class Texts : Activity() {
 
 
 }
+
+
+
 

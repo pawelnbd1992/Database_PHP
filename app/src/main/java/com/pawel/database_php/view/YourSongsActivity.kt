@@ -1,4 +1,4 @@
-package com.pawel.database_php
+package com.pawel.database_php.view
 
 import android.app.Activity
 import android.content.Intent
@@ -19,6 +19,13 @@ import android.widget.ListView
 import android.widget.TextView
 import com.google.firebase.auth.FirebaseAuth
 import com.ipaulpro.afilechooser.utils.FileUtils
+import com.pawel.database_php.R
+import com.pawel.database_php.view.RetrofitBuilder
+import com.pawel.database_php.view.Texts
+import com.pawel.database_php.data.DataBody
+import com.pawel.database_php.data.MyWebService
+import com.pawel.database_php.view.adapters.ProductAdapter
+import com.pawel.database_php.view.auth.SignInActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

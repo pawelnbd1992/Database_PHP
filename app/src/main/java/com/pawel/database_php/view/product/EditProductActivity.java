@@ -1,19 +1,17 @@
-package com.pawel.database_php;
+package com.pawel.database_php.view.product;
 
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
-import java.io.IOException;
-import java.util.List;
+import com.pawel.database_php.data.DataBody;
+import com.pawel.database_php.data.MyWebService;
+import com.pawel.database_php.R;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -21,7 +19,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class EditProduct extends Activity {
+public class EditProductActivity extends Activity {
 
     private EditText inputName;
     private EditText inputPrice;

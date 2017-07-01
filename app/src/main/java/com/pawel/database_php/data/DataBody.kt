@@ -1,4 +1,4 @@
-package com.pawel.database_php
+package com.pawel.database_php.data
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

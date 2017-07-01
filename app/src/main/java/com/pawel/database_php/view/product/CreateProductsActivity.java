@@ -1,4 +1,4 @@
-package com.pawel.database_php;
+package com.pawel.database_php.view.product;
 
 
 import android.app.Activity;
@@ -10,6 +10,9 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.pawel.database_php.data.DataBody;
+import com.pawel.database_php.data.MyWebService;
+import com.pawel.database_php.R;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;

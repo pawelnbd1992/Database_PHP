@@ -1,4 +1,6 @@
-package com.pawel.database_php;
+package com.pawel.database_php.data;
+
+import com.pawel.database_php.data.DataBody;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
