@@ -11,27 +11,28 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.auth.SignInActivity"></activity>
+        <activity
+            android:name=".view.auth.SignInActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
         <activity
             android:name=".view.product.CreateProductsActivity"
             android:label="Add New Product" />
         <activity
             android:name=".view.product.EditProductActivity"
             android:label="Edit sProduct" />
-        <activity
-            android:name=".AllProductActivity"
-            android:label=" All product" />
         <activity android:name=".view.main.MainActivity" />
         <activity
             android:name=".view.YourSongsActivity"
             android:label="@string/title_activity_your__songs"
             android:theme="@style/AppTheme.NoActionBar"
-            android:noHistory="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:noHistory="true"
+            android:windowSoftInputMode="stateVisible|adjustNothing">
         </activity>
         <activity
             android:name=".view.auth.SignUpActivity"
@@ -40,7 +41,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".view.auth.SignInActivity" />
         </activity>
-        <activity android:name=".view.Texts"></activity>
+        <activity android:name=".view.TextsActivity"></activity>
     </application>
 
 </manifest>

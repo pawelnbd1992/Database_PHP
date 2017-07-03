@@ -26,7 +26,7 @@ public interface MyWebService {
     @POST("android/create_product.php?")
          Call<DataBody> insertUser(
             @Field("name")String name,
-            @Field("price")String price,
+            @Field("price")String author,
             @Field("description")String description
    );
 

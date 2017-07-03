@@ -21,17 +21,18 @@ import com.google.firebase.auth.FirebaseAuth
 import com.ipaulpro.afilechooser.utils.FileUtils
 import com.pawel.database_php.R
 import com.pawel.database_php.view.RetrofitBuilder
-import com.pawel.database_php.view.Texts
+import com.pawel.database_php.view.TextsActivity
 import com.pawel.database_php.data.DataBody
 import com.pawel.database_php.data.MyWebService
 import com.pawel.database_php.view.adapters.ProductAdapter
 import com.pawel.database_php.view.auth.SignInActivity
+import kotlinx.android.synthetic.main.activity_your__songs.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
 
-class YourSongsActivity : AppCompatActivity() {
+class YourSongsActivity : AppCompatActivity()  {
 
 
     private var mSectionsPagerAdapter: SectionsPagerAdapter? = null
@@ -57,12 +58,8 @@ class YourSongsActivity : AppCompatActivity() {
             }
         }
         setContentView(R.layout.activity_your__songs)
-
-
-        val toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
+
         mSectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager)
 
         // Set up the ViewPager with the sections adapter.
@@ -71,6 +68,8 @@ class YourSongsActivity : AppCompatActivity() {
 
         val tabLayout = findViewById(R.id.tabs) as TabLayout
         tabLayout.setupWithViewPager(mViewPager)
+
+
 
 
     }
@@ -86,15 +85,12 @@ class YourSongsActivity : AppCompatActivity() {
 
         val id = item.itemId
         val context = applicationContext
-        //noinspection SimplifiableIfStatement
         if (id == R.id.logout) {
 
             signout()
             val intent = Intent(context, SignInActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
-            intent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
             startActivity(intent)
+            finish()
 
             return true
         }
@@ -203,7 +199,7 @@ class YourSongsActivity : AppCompatActivity() {
             listView.setOnItemClickListener { adapterView, view, i, l ->
 
                     val pidOfSong = (view.findViewById(R.id.pid) as TextView).text.toString()
-                    val intent = Intent(context, Texts::class.java)
+                    val intent = Intent(context, TextsActivity::class.java)
                     intent.putExtra(PID_OF_SONG, pidOfSong)
                     startActivity(intent)
                 }

@@ -56,7 +56,7 @@ public class EditProductActivity extends Activity {
 
                         DataBody dataBody = response.body();
                         inputName.setText(dataBody.getProduct().get(0).getName());
-                        inputPrice.setText(dataBody.getProduct().get(0).getPrice());
+                        inputPrice.setText(dataBody.getProduct().get(0).getAuthor());
                         inputDesc.setText(dataBody.getProduct().get(0).getDescription());
 
                     }

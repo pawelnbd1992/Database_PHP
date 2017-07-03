@@ -1,26 +1,27 @@
 package com.pawel.database_php.view
 
-import android.app.Activity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.text.Html
+import android.view.Menu
 import com.pawel.database_php.R
-import com.pawel.database_php.view.RetrofitBuilder
 import com.pawel.database_php.data.DataBody
 import com.pawel.database_php.data.MyWebService
-import kotlinx.android.synthetic.main.activity_texts.*
+import kotlinx.android.synthetic.main.content_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
 
 
-class Texts : Activity() {
+class TextsActivity : AppCompatActivity() {
     var pid_of_song: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_texts)
 
+       // setSupportActionBar(toolbar)
 
         val extras = intent.extras
 
@@ -37,6 +38,20 @@ class Texts : Activity() {
 
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_text,menu)
+
+        var menuItem = menu?.findItem(R.id.search)
+
+        return super.onCreateOptionsMenu(menu)
+    }
+
+
+
+
+
+
+
     private fun  getText(call: Call<DataBody>) {
         call.enqueue(object : Callback<DataBody> {
             override fun onResponse(call: Call<DataBody>, response: Response<DataBody>) {
@@ -49,13 +64,13 @@ class Texts : Activity() {
 
                     if (list_of_products != null) {
 
-                        song_et?.setText(Html.fromHtml(list_of_products.get(0).textOfSong))
-                        name_song_et?.setText(list_of_products.get(0).name)
+                        author_song_et?.setText(list_of_products.get(0).name)
+                        name_song_et?.setText(Html.fromHtml(list_of_products.get(0).textOfSong))
 
 
 
                     }else{
-                        song_et?.setText("cos jest nulem")
+                        author_song_et?.setText("cos jest nulem")
                     }
 
 
@@ -65,7 +80,7 @@ class Texts : Activity() {
 
             override fun onFailure(call: Call<DataBody>, t: Throwable) {
 
-                song_et?.setText("Mamy jakis blad")
+                author_song_et?.setText("Mamy jakis blad")
 
             }
         })
@@ -81,6 +96,10 @@ class Texts : Activity() {
 
 
 }
+
+
+
+
 
 
 

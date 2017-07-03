@@ -28,9 +28,9 @@ class DataBody {
         @Expose
         var name: String? = null
 
-        @SerializedName("price")
+        @SerializedName("author")
         @Expose
-        var price: String? = null
+        var author: String? = null
 
         @SerializedName("description")
         @Expose
