@@ -21,7 +21,6 @@ class TextsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_texts)
 
-       // setSupportActionBar(toolbar)
 
         val extras = intent.extras
 
@@ -45,10 +44,6 @@ class TextsActivity : AppCompatActivity() {
 
         return super.onCreateOptionsMenu(menu)
     }
-
-
-
-
 
 
 

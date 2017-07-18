@@ -49,7 +49,7 @@ class ProductAdapter( context: Context, private var products: List<DataBody.Prod
         val message = item.name
         val author = item.author
         viewHolder.author=author
-        viewHolder.title!!.text =author +"-"+message
+        viewHolder.title!!.text =author +" -"+message
         val id = item.pid!!
         viewHolder.pid!!.text = Integer.toString(id)
 

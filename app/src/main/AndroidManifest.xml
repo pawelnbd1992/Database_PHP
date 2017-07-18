@@ -26,22 +26,28 @@
         <activity
             android:name=".view.product.EditProductActivity"
             android:label="Edit sProduct" />
+        <activity
+            android:name=".view.TextsActivity"
+            android:label=""
+            android:parentActivityName=".view.YourSongsActivity"/>
         <activity android:name=".view.main.MainActivity" />
         <activity
             android:name=".view.YourSongsActivity"
             android:label="@string/title_activity_your__songs"
             android:theme="@style/AppTheme.NoActionBar"
             android:noHistory="true"
-            android:windowSoftInputMode="stateVisible|adjustNothing">
+            android:windowSoftInputMode="stateVisible|adjustNothing"
+            >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".view.TextsActivity" />
         </activity>
         <activity
             android:name=".view.auth.SignUpActivity"
             android:parentActivityName=".view.auth.SignInActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".view.auth.SignInActivity" />
+
         </activity>
-        <activity android:name=".view.TextsActivity"></activity>
+
     </application>
 
 </manifest>

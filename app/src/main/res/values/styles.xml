@@ -9,8 +9,8 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-    <style name="TextColor">
-  <item name="android:textColor">#FFF</item>
+    <style name="Item_File_Color">
+  <item name="android:textColor">@color/item_file_title_color</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
