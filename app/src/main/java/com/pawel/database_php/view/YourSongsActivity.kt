@@ -1,14 +1,18 @@
 package com.pawel.database_php.view
 
 import android.app.Activity
+import android.app.SearchManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
+import android.support.v4.view.MenuItemCompat
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.SearchView
 import android.support.v7.widget.Toolbar
 import android.text.Editable
 import android.text.TextWatcher
@@ -27,6 +31,7 @@ import com.pawel.database_php.data.MyWebService
 import com.pawel.database_php.view.adapters.ProductAdapter
 import com.pawel.database_php.view.auth.SignInActivity
 import kotlinx.android.synthetic.main.activity_your__songs.*
+import org.jetbrains.anko.searchManager
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -40,6 +45,7 @@ class YourSongsActivity : AppCompatActivity()  {
     private var mViewPager: ViewPager? = null
     private var auth: FirebaseAuth? = null
     private var authStateListener: FirebaseAuth.AuthStateListener? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,8 +72,7 @@ class YourSongsActivity : AppCompatActivity()  {
         mViewPager = findViewById(R.id.container) as ViewPager
         mViewPager!!.adapter = mSectionsPagerAdapter
 
-        val tabLayout = findViewById(R.id.tabs) as TabLayout
-        tabLayout.setupWithViewPager(mViewPager)
+
 
 
 
@@ -76,16 +81,35 @@ class YourSongsActivity : AppCompatActivity()  {
 
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_your__songs, menu)
-        return true
+
+        val inflater = menuInflater
+        inflater.inflate(R.menu.menu_your__songs, menu)
+
+        val searchViewItem = menu.findItem(R.id.search_song)
+
+        val searchViewAndroidActionBar = MenuItemCompat.getActionView(searchViewItem) as SearchView
+        searchViewAndroidActionBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+
+                searchViewAndroidActionBar.clearFocus()
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                return false
+            }
+        })
+
+        return super.onCreateOptionsMenu(menu);
     }
+
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         val id = item.itemId
         val context = applicationContext
-        if (id == R.id.logout) {
+        if (id == R.id.search) {
 
             signout()
             val intent = Intent(context, SignInActivity::class.java)
@@ -100,6 +124,8 @@ class YourSongsActivity : AppCompatActivity()  {
 
     private fun signout() {
         auth!!.signOut()
+
+
     }
 
     override fun onStart() {
