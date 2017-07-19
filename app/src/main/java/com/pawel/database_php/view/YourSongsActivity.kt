@@ -12,15 +12,13 @@ import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.MenuItemCompat
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.*
 import android.support.v7.widget.SearchView
 import android.support.v7.widget.Toolbar
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.*
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ListView
-import android.widget.TextView
+import android.widget.*
 import com.google.firebase.auth.FirebaseAuth
 import com.ipaulpro.afilechooser.utils.FileUtils
 import com.pawel.database_php.R
@@ -31,6 +29,7 @@ import com.pawel.database_php.data.MyWebService
 import com.pawel.database_php.view.adapters.ProductAdapter
 import com.pawel.database_php.view.auth.SignInActivity
 import kotlinx.android.synthetic.main.activity_your__songs.*
+import kotlinx.android.synthetic.main.list_item.*
 import org.jetbrains.anko.searchManager
 import retrofit2.Call
 import retrofit2.Callback
@@ -45,6 +44,7 @@ class YourSongsActivity : AppCompatActivity()  {
     private var mViewPager: ViewPager? = null
     private var auth: FirebaseAuth? = null
     private var authStateListener: FirebaseAuth.AuthStateListener? = null
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,6 +63,9 @@ class YourSongsActivity : AppCompatActivity()  {
 
             }
         }
+
+
+
         setContentView(R.layout.activity_your__songs)
         setSupportActionBar(toolbar)
 
@@ -86,23 +89,30 @@ class YourSongsActivity : AppCompatActivity()  {
         inflater.inflate(R.menu.menu_your__songs, menu)
 
         val searchViewItem = menu.findItem(R.id.search_song)
+        val productAdapter :ProductAdapter
 
         val searchViewAndroidActionBar = MenuItemCompat.getActionView(searchViewItem) as SearchView
+        setFilter(searchViewAndroidActionBar)
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    private fun  setFilter(searchViewAndroidActionBar: SearchView) {
         searchViewAndroidActionBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
 
                 searchViewAndroidActionBar.clearFocus()
+
                 return true
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
                 return false
+
+
             }
         })
-
-        return super.onCreateOptionsMenu(menu);
     }
-
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -143,11 +153,15 @@ class YourSongsActivity : AppCompatActivity()  {
             when (tab) {
                 1 -> {
                     val rootView = inflater!!.inflate(R.layout.fragment_your__songs, container, false)
-                    val listView = rootView.findViewById(R.id.list_of_songs) as ListView
+
+                    val recyclerView = rootView.findViewById(R.id.list_of_songs) as RecyclerView
+                    recyclerView.setHasFixedSize(true)
+                    recyclerView.layoutManager=LinearLayoutManager(context)
+                    recyclerView.itemAnimator = DefaultItemAnimator()
                     val client = RetrofitBuilder().myWebService
                     val call = getDataBodyCall(client)
                     val search_song = rootView.findViewById(R.id.search_song) as EditText
-                    getAllSongs(listView, call, search_song)
+                    getAllSongs(recyclerView, call, search_song)
                     val add_song_button = rootView.findViewById(R.id.add_song_button) as Button
                     AddNewSong(add_song_button)
                     return rootView
@@ -197,19 +211,21 @@ class YourSongsActivity : AppCompatActivity()  {
             return client.allProduct
         }
 
-        private fun getAllSongs(listView: ListView, call: Call<DataBody>, editText: EditText) {
+        private fun getAllSongs(recyclerView: RecyclerView, call: Call<DataBody>, editText: EditText){
+
             call.enqueue(object : Callback<DataBody> {
                 override fun onResponse(call: Call<DataBody>, response: Response<DataBody>) {
 
                     if (response.isSuccessful) {
 
                         val list_of_products = ArrayList(response.body().getProduct())
-                        if (list_of_products != null) {
 
-                            val productAdapter = ProductAdapter(activity.applicationContext, list_of_products)
-                            listView.adapter = productAdapter
+                        if (list_of_products != null) {
+                            val productAdapter = ProductAdapter(activity.applicationContext, list_of_products,recyclerView)
+                            recyclerView.adapter=productAdapter
+                            recyclerView.adapter = productAdapter
                             SearchSong(editText, productAdapter)
-                            getListView(listView)
+                            //wyswietlenie listy
 
                         }
                     }
@@ -219,7 +235,12 @@ class YourSongsActivity : AppCompatActivity()  {
 
                 }
             })
+
         }
+
+
+
+
 
         private fun getListView(listView: ListView) {
             listView.setOnItemClickListener { adapterView, view, i, l ->

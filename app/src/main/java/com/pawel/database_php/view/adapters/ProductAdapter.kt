@@ -1,23 +1,75 @@
 package com.pawel.database_php.view.adapters
 
 import android.content.Context
+import android.content.Intent
+import android.support.v4.app.ActivityCompat
+import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.RecyclerView.Adapter
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnClickListener
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.Filter
 import android.widget.Filterable
 import android.widget.TextView
-
 import com.pawel.database_php.R
 import com.pawel.database_php.data.DataBody
+import com.pawel.database_php.view.TextsActivity
+import com.pawel.database_php.view.YourSongsActivity
+import java.util.*
 
-import java.util.ArrayList
 
+class ProductAdapter( context: Context, private var products: ArrayList<DataBody.Product>,recycler: RecyclerView) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), Filterable {
 
-class ProductAdapter( context: Context, private var products: List<DataBody.Product>) : ArrayAdapter<DataBody.Product>(context, R.layout.list_item, products), Filterable {
     internal var previousLength = 0
-    private val originalProducts: List<DataBody.Product>
+    private val originalProducts: ArrayList<DataBody.Product>
+
+    private var listOfSongs :ArrayList<DataBody.Product>? = null
+    private var recyclerView : RecyclerView? = null
+    init {
+        listOfSongs=products
+        recyclerView=recycler
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
+
+        val item = products[position]
+        val name = item.name
+        val author = item.author
+
+        (holder as ViewHolder).author=author
+        (holder as ViewHolder).title!!.text=(author +" -"+name)
+
+        val id = item.pid!!
+        (holder as ViewHolder).pid!!.text = Integer.toString(id)
+
+
+
+    }
+
+
+
+    override fun getItemCount(): Int {
+        return products.size
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
+
+        val view : View = LayoutInflater.from(parent!!.context).inflate(R.layout.list_item,parent,false)
+
+        view.setOnClickListener {
+
+            val pidOfSong = (view.findViewById(R.id.pid) as TextView).text.toString()
+            val intent = Intent(parent.context, TextsActivity::class.java)
+            intent.putExtra("PID_OF_SONG", pidOfSong)
+            parent.context.startActivity(intent)
+        }
+
+        return ViewHolder(view)
+
+    }
+
+
 
 
     init {
@@ -25,9 +77,11 @@ class ProductAdapter( context: Context, private var products: List<DataBody.Prod
 
     }
 
-    override fun getCount(): Int {
+   /**
+         override fun getCount(): Int {
         return products!!.size
-    }
+    }**/
+   /**
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
 
@@ -56,7 +110,7 @@ class ProductAdapter( context: Context, private var products: List<DataBody.Prod
 
         return row
     }
-
+**/
     override fun getFilter(): Filter {
         return filter
     }
@@ -94,22 +148,29 @@ class ProductAdapter( context: Context, private var products: List<DataBody.Prod
         }
 
         override fun publishResults(constraint: CharSequence, results: Filter.FilterResults) {
-            products = results.values as List<DataBody.Product>
+            products = results.values as ArrayList<DataBody.Product>
             if (results.count > 0) {
 
                 notifyDataSetChanged()
             } else {
-                notifyDataSetInvalidated()
+
             }
         }
 
 
     }
 
-    private class ViewHolder {
-        internal var title: TextView? = null
-        internal var pid: TextView? = null
-        internal var author: String?=null
+    class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
+        var title: TextView? = null
+        var pid: TextView? = null
+         var author: String?=null
+    init {
+        title = itemView!!.findViewById(R.id.name_all_products) as TextView
+        pid = itemView.findViewById(R.id.pid) as TextView
+    }
+
 
     }
 }
+
+
