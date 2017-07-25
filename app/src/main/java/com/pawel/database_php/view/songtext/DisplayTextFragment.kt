@@ -1,6 +1,5 @@
 package com.pawel.database_php.view.songtext
 
-import android.app.Fragment
 import android.os.Bundle
 import android.text.Html
 import android.view.LayoutInflater
@@ -16,30 +15,25 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
 
-class DisplayTextFragment : Fragment() {
+class DisplayTextFragment : android.support.v4.app.Fragment() {
 
     var pid_of_song: Int = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        pid_of_song = arguments.getInt("PID")
+      pid_of_song = arguments.getInt("PID")
 
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
-        val rootView = inflater!!.inflate(R.layout.display_text_fragment, container, false)
-        // val extras = intent.extras
-
-        //if (extras != null) {
-        //    pid_of_song = extras.getString(PID_OF_SONG)
-        // }
+        val rootView = inflater?.inflate(R.layout.display_text_fragment, container, false)
         val client = RetrofitBuilder().myWebService
         val call = getTextOfSong(client,pid_of_song)
         getText(call)
 
-        return rootView
+        return rootView as View
     }
 
     private fun getText(call: Call<DataBody>) {

@@ -23,20 +23,29 @@ import com.pawel.database_php.data.DataBody
 import com.pawel.database_php.data.MyWebService
 import com.pawel.database_php.view.RetrofitBuild.RetrofitBuilder
 import com.pawel.database_php.view.adapters.ProductAdapter
+import com.pawel.database_php.view.songtext.DisplayTextFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
 
-class SongListFragment : Fragment() {
-
-   var listener:SongListFragmentListener = null!!
+class SongListFragment : Fragment(),SongListFragmentListener{
 
 
-    interface SongListFragmentListener{
-
-        fun onItemSelected(position:Int)
+    override fun onItemSelected(position: Int) {
+        val displayFragment = DisplayTextFragment()
+        val bundle = Bundle()
+        bundle.putInt("PID",position)
+       displayFragment.arguments=bundle
+        val manager = fragmentManager
+        val transaction = manager.beginTransaction()
+        transaction.replace(R.id.head_container, displayFragment).commit()
     }
+
+    var listener:SongListFragmentListener ?= null
+
+
+
 
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -53,11 +62,13 @@ class SongListFragment : Fragment() {
                 val search_song = rootView.findViewById(R.id.search_song) as EditText
                 getAllSongs(recyclerView, call, search_song)
 
-                return rootView
+
+
+
+        return rootView
             }
 
-
-
+    
 
 
     override fun onAttach(context: Context?) {
@@ -68,7 +79,7 @@ class SongListFragment : Fragment() {
 
     override fun onDetach() {
         super.onDetach()
-        listener = null!!
+        listener = null
 
 
     }
@@ -120,7 +131,7 @@ class SongListFragment : Fragment() {
                     val list_of_products = ArrayList(response.body().getProduct())
 
                     if (list_of_products != null) {
-                        val productAdapter = ProductAdapter(list_of_products,recyclerView, listener)
+                        val productAdapter = ProductAdapter(list_of_products,recyclerView, listener as SongListFragmentListener)
                         recyclerView.adapter=productAdapter
                         recyclerView.adapter = productAdapter
                         SearchSong(editText, productAdapter)
@@ -185,4 +196,12 @@ class SongListFragment : Fragment() {
 
 
 }
+}
+
+interface SongListFragmentListener {
+
+
+        fun onItemSelected(position:Int)
+
+
 }

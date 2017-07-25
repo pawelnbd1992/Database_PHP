@@ -1,6 +1,7 @@
 package com.pawel.database_php.view
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v4.view.MenuItemCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SearchView
@@ -10,12 +11,13 @@ import com.google.firebase.auth.FirebaseAuth
 import com.pawel.database_php.R
 import com.pawel.database_php.view.auth.SignInActivity
 import com.pawel.database_php.view.songlist.SongListFragment
+import com.pawel.database_php.view.songlist.SongListFragmentListener
 import com.pawel.database_php.view.songtext.DisplayTextFragment
 import kotlinx.android.synthetic.main.activity_your__songs.*
 
-class YourSongsActivity : AppCompatActivity(), SearchView.OnQueryTextListener, SongListFragment.SongListFragmentListener {
+class YourSongsActivity : AppCompatActivity(), SearchView.OnQueryTextListener, SongListFragmentListener {
 
-    var songList: SongListFragment = null!!
+    var songList: SongListFragment? = null
     private var auth: FirebaseAuth? = null
     private var authStateListener: FirebaseAuth.AuthStateListener? = null
     override fun onQueryTextSubmit(query: String?): Boolean {
@@ -27,7 +29,7 @@ class YourSongsActivity : AppCompatActivity(), SearchView.OnQueryTextListener, S
 
         return true;
     }
-///xz
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,21 +51,21 @@ class YourSongsActivity : AppCompatActivity(), SearchView.OnQueryTextListener, S
 
         setContentView(R.layout.activity_your__songs)
         setSupportActionBar(toolbar)
-        if (savedInstanceState != null) {
+
             songList = SongListFragment()
             var transation: android.support.v4.app.FragmentTransaction = supportFragmentManager.beginTransaction()
             transation.add(R.id.head_container, songList)
             transation.commit()
 
-        }
+
 
 
     }
 
     override fun onItemSelected(position: Int) {
-        val displaytext: DisplayTextFragment = DisplayTextFragment()
-        var transaction: android.support.v4.app.FragmentTransaction? = supportFragmentManager.beginTransaction()
-        transaction!!.replace(R.id.head_container, displaytext as android.support.v4.app.Fragment)
+        var displayText:DisplayTextFragment=DisplayTextFragment()
+        var transaction: android.support.v4.app.FragmentTransaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.head_container, displayText)
         transaction.addToBackStack(null)
         transaction.commit()
 
