@@ -46,7 +46,7 @@ public class CreateProductsActivity extends Activity {
         Button btnCreateProduct = (Button) findViewById(R.id.create_new_product);
 
         // button click event
-        btnCreateProduct.setOnClickListener( new View.OnClickListener() {
+        btnCreateProduct.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
@@ -59,13 +59,14 @@ public class CreateProductsActivity extends Activity {
 
                 //DataBody.Product product = new DataBody.Product(name, price, description,null,null);
 
-                sendRequestBody(name,price,description);
-                Toast.makeText(CreateProductsActivity.this,"OK",Toast.LENGTH_SHORT).show();
+                sendRequestBody(name, price, description);
+                Toast.makeText(CreateProductsActivity.this, "OK", Toast.LENGTH_SHORT).show();
 
             }
-        });}
+        });
+    }
 
-    private void sendRequestBody(String name,String price,String description) {
+    private void sendRequestBody(String name, String price, String description) {
         OkHttpClient.Builder okHttpClient = new OkHttpClient.Builder();
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -82,16 +83,15 @@ public class CreateProductsActivity extends Activity {
 
         Retrofit retrofit = builder.build();
         MyWebService client = retrofit.create(MyWebService.class);
-        Call<DataBody> call = client.insertUser(name,price,description);
+        Call<DataBody> call = client.insertUser(name, price, description);
         call.enqueue(new Callback<DataBody>() {
             @Override
             public void onResponse(Call<DataBody> call, Response<DataBody> response) {
-                if(response.isSuccessful()){
-                    Toast.makeText(CreateProductsActivity.this,"OK",Toast.LENGTH_SHORT).show();
+                if (response.isSuccessful()) {
+                    Toast.makeText(CreateProductsActivity.this, "OK", Toast.LENGTH_SHORT).show();
                 }
 
             }
-
 
 
             @Override
@@ -103,7 +103,7 @@ public class CreateProductsActivity extends Activity {
 
     }
 
-    }
+}
 
 
 

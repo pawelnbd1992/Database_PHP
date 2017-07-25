@@ -1,7 +1,4 @@
 package com.pawel.database_php.view.adapters
-
-import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
@@ -11,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import android.widget.TextView
-import android.widget.Toast
 import com.pawel.database_php.R
 import com.pawel.database_php.data.DataBody
 import com.pawel.database_php.view.songlist.SongListFragment
@@ -19,21 +15,19 @@ import com.pawel.database_php.view.songtext.DisplayTextFragment
 import java.util.*
 
 
-class ProductAdapter(  private var products: ArrayList<DataBody.Product>,recycler: RecyclerView, mylistener:SongListFragment.SongListFragmentListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), Filterable {
+class ProductAdapter(private var products: ArrayList<DataBody.Product>, recycler: RecyclerView, mylistener: SongListFragment.SongListFragmentListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), Filterable {
 
 
     internal var previousLength = 0
     private val originalProducts: ArrayList<DataBody.Product>
-
-    private var listOfSongs :ArrayList<DataBody.Product>? = null
-    private var recyclerView : RecyclerView? = null
-    private var listener :SongListFragment.SongListFragmentListener ?= null
+    private var listOfSongs: ArrayList<DataBody.Product>? = null
+    private var recyclerView: RecyclerView? = null
+    private var listener: SongListFragment.SongListFragmentListener? = null
 
     init {
-        listOfSongs=products
-        recyclerView=recycler
-        listener=mylistener
-
+        listOfSongs = products
+        recyclerView = recycler
+        listener = mylistener
 
 
     }
@@ -43,21 +37,19 @@ class ProductAdapter(  private var products: ArrayList<DataBody.Product>,recycle
         val item = products[position]
         val name = item.name
         val author = item.author
-
-        (holder as ViewHolder).author=author
-        holder.title!!.text=(author +" -"+name)
-
         val id = item.pid!!
+
+        (holder as ViewHolder).author = author
+        holder.title!!.text = (author + " -" + name)
         holder.pid!!.text = Integer.toString(id)
 
-        var fragmentDisplayText :DisplayTextFragment = DisplayTextFragment()
-        var bundle:Bundle= Bundle()
+        var fragmentDisplayText: DisplayTextFragment = DisplayTextFragment()
+        var bundle: Bundle = Bundle()
         bundle.putInt("PID", item.pid!!)
-        fragmentDisplayText.arguments=bundle
+        fragmentDisplayText.arguments = bundle
 
 
     }
-
 
 
     override fun getItemCount(): Int {
@@ -66,7 +58,7 @@ class ProductAdapter(  private var products: ArrayList<DataBody.Product>,recycle
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
 
-        val view : View = LayoutInflater.from(parent!!.context).inflate(R.layout.list_item,parent,false)
+        val view: View = LayoutInflater.from(parent!!.context).inflate(R.layout.list_item, parent, false)
 
         view.setOnClickListener {
 
@@ -81,47 +73,45 @@ class ProductAdapter(  private var products: ArrayList<DataBody.Product>,recycle
     }
 
 
-
-
     init {
         originalProducts = products
 
     }
 
-   /**
-         override fun getCount(): Int {
-        return products!!.size
+    /**
+    override fun getCount(): Int {
+    return products!!.size
     }**/
-   /**
+    /**
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
 
-        var row: View? = convertView
-        val viewHolder: ViewHolder
-        if (row == null) {
-            val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            row = inflater.inflate(R.layout.list_item, parent, false)
-            viewHolder = ViewHolder()
-            viewHolder.title = row!!.findViewById(R.id.name_all_products) as TextView
-            viewHolder.pid = row.findViewById(R.id.pid) as TextView
-            row.tag = viewHolder
-        } else {
-            viewHolder = row.tag as ViewHolder
-        }
-
-
-        val item = products!![position]
-        val message = item.name
-        val author = item.author
-        viewHolder.author=author
-        viewHolder.title!!.text =author +" -"+message
-        val id = item.pid!!
-        viewHolder.pid!!.text = Integer.toString(id)
-
-
-        return row
+    var row: View? = convertView
+    val viewHolder: ViewHolder
+    if (row == null) {
+    val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+    row = inflater.inflate(R.layout.list_item, parent, false)
+    viewHolder = ViewHolder()
+    viewHolder.title = row!!.findViewById(R.id.name_all_products) as TextView
+    viewHolder.pid = row.findViewById(R.id.pid) as TextView
+    row.tag = viewHolder
+    } else {
+    viewHolder = row.tag as ViewHolder
     }
-**/
+
+
+    val item = products!![position]
+    val message = item.name
+    val author = item.author
+    viewHolder.author=author
+    viewHolder.title!!.text =author +" -"+message
+    val id = item.pid!!
+    viewHolder.pid!!.text = Integer.toString(id)
+
+
+    return row
+    }
+     **/
     override fun getFilter(): Filter {
         return filter
     }
@@ -143,7 +133,7 @@ class ProductAdapter(  private var products: ArrayList<DataBody.Product>,recycle
                     if (p.name!!.toUpperCase().startsWith(constraint.toString().toUpperCase())) {
 
                         tempproducts.add(p)
-                    }else{
+                    } else {
                         if (p.author!!.toUpperCase().startsWith(constraint.toString().toUpperCase())) {
 
                             tempproducts.add(p)
@@ -171,22 +161,22 @@ class ProductAdapter(  private var products: ArrayList<DataBody.Product>,recycle
 
     }
 
-    class ViewHolder(itemView: View?, mylistener:SongListFragment.SongListFragmentListener) : RecyclerView.ViewHolder(itemView),View.OnClickListener {
+    class ViewHolder(itemView: View?, mylistener: SongListFragment.SongListFragmentListener) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
 
         var title: TextView? = null
         var pid: TextView? = null
-         var author: String?=null
-        var listener:SongListFragment.SongListFragmentListener = null!!
+        var author: String? = null
+        var listener: SongListFragment.SongListFragmentListener = null!!
 
 
         init {
-        listener=mylistener
-        title = itemView!!.findViewById(R.id.name_all_products) as TextView
-        pid = itemView.findViewById(R.id.pid) as TextView
-        title!!.setOnClickListener(this)
+            listener = mylistener
+            title = itemView!!.findViewById(R.id.name_all_products) as TextView
+            pid = itemView.findViewById(R.id.pid) as TextView
+            title!!.setOnClickListener(this)
 
-    }
+        }
 
         override fun onClick(view: View?) {
 

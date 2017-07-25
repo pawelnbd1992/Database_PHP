@@ -97,7 +97,7 @@ public class SignInActivity extends AppCompatActivity {
 
 
                                 if (!task.isSuccessful()) {
-                                    Toast.makeText(SignInActivity.this, "Błąd logowania",
+                                    Toast.makeText(SignInActivity.this, "Error log",
                                             Toast.LENGTH_SHORT).show();
                                 }
                             }

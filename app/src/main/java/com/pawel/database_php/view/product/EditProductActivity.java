@@ -49,7 +49,7 @@ public class EditProductActivity extends Activity {
                         addConverterFactory(GsonConverterFactory.create(gson));
                 Retrofit retrofit = builder.build();
                 MyWebService client = retrofit.create(MyWebService.class);
-               Call<DataBody> call = client.getProductDetails(1);
+                Call<DataBody> call = client.getProductDetails(1);
                 call.enqueue(new Callback<DataBody>() {
                     @Override
                     public void onResponse(Call<DataBody> call, Response<DataBody> response) {

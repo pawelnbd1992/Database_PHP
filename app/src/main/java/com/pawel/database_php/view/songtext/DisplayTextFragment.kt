@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import com.pawel.database_php.R
 import com.pawel.database_php.data.DataBody
 import com.pawel.database_php.data.MyWebService
-import com.pawel.database_php.view.RetrofitBuilder
+import com.pawel.database_php.view.RetrofitBuild.RetrofitBuilder
 import kotlinx.android.synthetic.main.content_main.*
 import retrofit2.Call
 import retrofit2.Callback

@@ -19,14 +19,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        Button button_all_products= (Button) findViewById(R.id.button_all_products);
-        Button button_create_product= (Button) findViewById(R.id.button_create_new_product);
+        Button button_all_products = (Button) findViewById(R.id.button_all_products);
+        Button button_create_product = (Button) findViewById(R.id.button_create_new_product);
         Button button_your_songs = (Button) findViewById(R.id.button_your_songs);
 
         button_all_products.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(),CreateProductsActivity.class);
+                Intent i = new Intent(getApplicationContext(), CreateProductsActivity.class);
                 startActivity(i);
             }
         });
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         button_create_product.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(),SignInActivity.class);
+                Intent i = new Intent(getApplicationContext(), SignInActivity.class);
                 startActivity(i);
             }
         });

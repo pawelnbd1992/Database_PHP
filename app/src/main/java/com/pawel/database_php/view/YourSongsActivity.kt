@@ -1,12 +1,8 @@
 package com.pawel.database_php.view
 
-import android.app.Fragment
-import android.app.FragmentManager
-import android.app.FragmentTransaction
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.view.MenuItemCompat
-import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SearchView
 import android.view.Menu
@@ -18,23 +14,21 @@ import com.pawel.database_php.view.songlist.SongListFragment
 import com.pawel.database_php.view.songtext.DisplayTextFragment
 import kotlinx.android.synthetic.main.activity_your__songs.*
 
-class YourSongsActivity : AppCompatActivity(), SearchView.OnQueryTextListener, SongListFragment.SongListFragmentListener{
+class YourSongsActivity : AppCompatActivity(), SearchView.OnQueryTextListener, SongListFragment.SongListFragmentListener {
 
     var songList: SongListFragment = null!!
-
+    private var auth: FirebaseAuth? = null
+    private var authStateListener: FirebaseAuth.AuthStateListener? = null
     override fun onQueryTextSubmit(query: String?): Boolean {
-        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+        throw UnsupportedOperationException("not implemented")
+
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
-        //ProductAdapter().filter.filter(newText)
+
         return true;
     }
 
-
-
-    private var auth: FirebaseAuth? = null
-    private var authStateListener: FirebaseAuth.AuthStateListener? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,37 +48,27 @@ class YourSongsActivity : AppCompatActivity(), SearchView.OnQueryTextListener, S
             }
         }
 
-
-
         setContentView(R.layout.activity_your__songs)
         setSupportActionBar(toolbar)
-        if(savedInstanceState!=null){
-          songList= SongListFragment()
-       var transation :android.support.v4.app.FragmentTransaction =supportFragmentManager.beginTransaction()
-            transation.add(R.id.head_container,songList)
+        if (savedInstanceState != null) {
+            songList = SongListFragment()
+            var transation: android.support.v4.app.FragmentTransaction = supportFragmentManager.beginTransaction()
+            transation.add(R.id.head_container, songList)
             transation.commit()
 
         }
 
 
-
-
-
-
-
     }
+
     override fun onItemSelected(position: Int) {
-    val displaytext : DisplayTextFragment= DisplayTextFragment()
-    var transaction : android.support.v4.app.FragmentTransaction? =supportFragmentManager.beginTransaction()
-    transaction!!.replace(R.id.head_container,displaytext as android.support.v4.app.Fragment)
-     transaction.addToBackStack(null)
-      transaction.commit()
+        val displaytext: DisplayTextFragment = DisplayTextFragment()
+        var transaction: android.support.v4.app.FragmentTransaction? = supportFragmentManager.beginTransaction()
+        transaction!!.replace(R.id.head_container, displaytext as android.support.v4.app.Fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
 
     }
-
-
-
-
 
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -95,7 +79,6 @@ class YourSongsActivity : AppCompatActivity(), SearchView.OnQueryTextListener, S
         val searchViewItem = menu.findItem(R.id.search_song_searchview)
 
         val searchViewAndroidActionBar = MenuItemCompat.getActionView(searchViewItem) as SearchView
-
 
         searchViewAndroidActionBar.setOnQueryTextListener(this)
 

@@ -21,9 +21,8 @@ import com.ipaulpro.afilechooser.utils.FileUtils
 import com.pawel.database_php.R
 import com.pawel.database_php.data.DataBody
 import com.pawel.database_php.data.MyWebService
-import com.pawel.database_php.view.RetrofitBuilder
+import com.pawel.database_php.view.RetrofitBuild.RetrofitBuilder
 import com.pawel.database_php.view.adapters.ProductAdapter
-import org.jetbrains.anko.support.v4.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -53,7 +52,7 @@ class SongListFragment : Fragment() {
                 val call = getDataBodyCall(client)
                 val search_song = rootView.findViewById(R.id.search_song) as EditText
                 getAllSongs(recyclerView, call, search_song)
-               
+
                 return rootView
             }
 
@@ -126,9 +125,6 @@ class SongListFragment : Fragment() {
                         recyclerView.adapter = productAdapter
                         SearchSong(editText, productAdapter)
 
-
-
-                        //wyswietlenie listy
 
                     }
                 }
