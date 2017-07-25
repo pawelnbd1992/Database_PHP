@@ -10,7 +10,6 @@ import android.widget.Filterable
 import android.widget.TextView
 import com.pawel.database_php.R
 import com.pawel.database_php.data.DataBody
-import com.pawel.database_php.view.songlist.SongListFragment
 import com.pawel.database_php.view.songlist.SongListFragmentListener
 import com.pawel.database_php.view.songtext.DisplayTextFragment
 import java.util.*
@@ -44,11 +43,10 @@ class ProductAdapter(private var products: ArrayList<DataBody.Product>, recycler
         holder.title?.text = (author + " -" + name)
         holder.pid?.text = Integer.toString(id as Int)
 
-        var fragmentDisplayText: DisplayTextFragment = DisplayTextFragment()
-        var arguments: Bundle = Bundle()
-        arguments.putInt("PID", item?.pid as Int)
-        fragmentDisplayText.arguments = arguments
-
+        val fragmentB = DisplayTextFragment()
+        val bundle = Bundle()
+        bundle.putInt("POSITION", position)
+        fragmentB.setArguments(bundle)
 
 
     }
@@ -60,18 +58,11 @@ class ProductAdapter(private var products: ArrayList<DataBody.Product>, recycler
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
 
-        val view: View = LayoutInflater.from(parent!!.context).inflate(R.layout.list_item, parent, false)
-
-        view.setOnClickListener {
-
-            val pidOfSong = (view.findViewById(R.id.pid) as TextView).text.toString()
-            val intent = Intent(parent.context, DisplayTextFragment.javaClass)
-            intent.putExtra("PID_OF_SONG", pidOfSong)
+        val view: View = LayoutInflater.from(parent?.context).inflate(R.layout.list_item, parent, false)
 
 
-        }
 
-        return ViewHolder(view, listener!!)
+        return ViewHolder(view, listener as SongListFragmentListener)
 
     }
 
@@ -183,8 +174,9 @@ class ProductAdapter(private var products: ArrayList<DataBody.Product>, recycler
 
         override fun onClick(view: View?) {
 
-
             listener?.onItemSelected(Integer.valueOf(pid?.text.toString()))
+
+
         }
 
     }

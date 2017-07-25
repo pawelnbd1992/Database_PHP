@@ -17,17 +17,20 @@ import java.util.*
 
 class DisplayTextFragment : android.support.v4.app.Fragment() {
 
-    var pid_of_song: Int = 0
+
+    var pid_of_song: Int = 1
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-      pid_of_song = arguments.getInt("PID")
+        pid_of_song=arguments.getInt("POSITION")
+
 
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
+        
         val rootView = inflater?.inflate(R.layout.display_text_fragment, container, false)
         val client = RetrofitBuilder().myWebService
         val call = getTextOfSong(client,pid_of_song)

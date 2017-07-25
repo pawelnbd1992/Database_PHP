@@ -33,13 +33,7 @@ class SongListFragment : Fragment(),SongListFragmentListener{
 
 
     override fun onItemSelected(position: Int) {
-        val displayFragment = DisplayTextFragment()
-        val bundle = Bundle()
-        bundle.putInt("PID",position)
-       displayFragment.arguments=bundle
-        val manager = fragmentManager
-        val transaction = manager.beginTransaction()
-        transaction.replace(R.id.head_container, displayFragment).commit()
+
     }
 
     var listener:SongListFragmentListener ?= null

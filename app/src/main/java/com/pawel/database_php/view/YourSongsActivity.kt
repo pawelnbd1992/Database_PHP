@@ -14,6 +14,7 @@ import com.pawel.database_php.view.songlist.SongListFragment
 import com.pawel.database_php.view.songlist.SongListFragmentListener
 import com.pawel.database_php.view.songtext.DisplayTextFragment
 import kotlinx.android.synthetic.main.activity_your__songs.*
+import org.jetbrains.anko.toast
 
 class YourSongsActivity : AppCompatActivity(), SearchView.OnQueryTextListener, SongListFragmentListener {
 
@@ -64,12 +65,19 @@ class YourSongsActivity : AppCompatActivity(), SearchView.OnQueryTextListener, S
 
     override fun onItemSelected(position: Int) {
         var displayText:DisplayTextFragment=DisplayTextFragment()
+        var args = Bundle()
+        args.putInt("POSITION", position)
+        displayText.setArguments(args)
         var transaction: android.support.v4.app.FragmentTransaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.head_container, displayText)
         transaction.addToBackStack(null)
         transaction.commit()
 
+
+
     }
+
+
 
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
