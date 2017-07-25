@@ -1,50 +1,40 @@
 package com.pawel.database_php.view
 
-import android.app.Activity
-import android.app.SearchManager
-import android.content.Context
+import android.app.Fragment
+import android.app.FragmentManager
+import android.app.FragmentTransaction
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.TabLayout
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.MenuItemCompat
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.*
 import android.support.v7.widget.SearchView
-import android.support.v7.widget.Toolbar
-import android.text.Editable
-import android.text.TextWatcher
-import android.view.*
-import android.widget.*
+import android.view.Menu
+import android.view.MenuItem
 import com.google.firebase.auth.FirebaseAuth
-import com.ipaulpro.afilechooser.utils.FileUtils
 import com.pawel.database_php.R
-import com.pawel.database_php.view.RetrofitBuilder
-import com.pawel.database_php.view.TextsActivity
-import com.pawel.database_php.data.DataBody
-import com.pawel.database_php.data.MyWebService
-import com.pawel.database_php.view.adapters.ProductAdapter
 import com.pawel.database_php.view.auth.SignInActivity
+import com.pawel.database_php.view.songlist.SongListFragment
+import com.pawel.database_php.view.songtext.DisplayTextFragment
 import kotlinx.android.synthetic.main.activity_your__songs.*
-import kotlinx.android.synthetic.main.list_item.*
-import org.jetbrains.anko.searchManager
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.util.*
 
-class YourSongsActivity : AppCompatActivity()  {
+class YourSongsActivity : AppCompatActivity(), SearchView.OnQueryTextListener, SongListFragment.SongListFragmentListener{
+
+    var songList: SongListFragment = null!!
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        //ProductAdapter().filter.filter(newText)
+        return true;
+    }
 
 
-    private var mSectionsPagerAdapter: SectionsPagerAdapter? = null
 
-    private var mViewPager: ViewPager? = null
     private var auth: FirebaseAuth? = null
     private var authStateListener: FirebaseAuth.AuthStateListener? = null
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,12 +58,14 @@ class YourSongsActivity : AppCompatActivity()  {
 
         setContentView(R.layout.activity_your__songs)
         setSupportActionBar(toolbar)
+        if(savedInstanceState!=null){
+          songList= SongListFragment()
+       var transation :android.support.v4.app.FragmentTransaction =supportFragmentManager.beginTransaction()
+            transation.add(R.id.head_container,songList)
+            transation.commit()
 
-        mSectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager)
+        }
 
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = findViewById(R.id.container) as ViewPager
-        mViewPager!!.adapter = mSectionsPagerAdapter
 
 
 
@@ -81,6 +73,18 @@ class YourSongsActivity : AppCompatActivity()  {
 
 
     }
+    override fun onItemSelected(position: Int) {
+    val displaytext : DisplayTextFragment= DisplayTextFragment()
+    var transaction : android.support.v4.app.FragmentTransaction? =supportFragmentManager.beginTransaction()
+    transaction!!.replace(R.id.head_container,displaytext as android.support.v4.app.Fragment)
+     transaction.addToBackStack(null)
+      transaction.commit()
+
+    }
+
+
+
+
 
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -88,30 +92,14 @@ class YourSongsActivity : AppCompatActivity()  {
         val inflater = menuInflater
         inflater.inflate(R.menu.menu_your__songs, menu)
 
-        val searchViewItem = menu.findItem(R.id.search_song)
-        val productAdapter :ProductAdapter
+        val searchViewItem = menu.findItem(R.id.search_song_searchview)
 
         val searchViewAndroidActionBar = MenuItemCompat.getActionView(searchViewItem) as SearchView
-        setFilter(searchViewAndroidActionBar)
+
+
+        searchViewAndroidActionBar.setOnQueryTextListener(this)
 
         return super.onCreateOptionsMenu(menu);
-    }
-
-    private fun  setFilter(searchViewAndroidActionBar: SearchView) {
-        searchViewAndroidActionBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean {
-
-                searchViewAndroidActionBar.clearFocus()
-
-                return true
-            }
-
-            override fun onQueryTextChange(newText: String): Boolean {
-                return false
-
-
-            }
-        })
     }
 
 
@@ -141,186 +129,6 @@ class YourSongsActivity : AppCompatActivity()  {
     override fun onStart() {
         super.onStart()
         auth!!.addAuthStateListener(authStateListener!!)
-    }
-
-    class Fragment1 : Fragment() {
-
-
-        override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
-            val tab = arguments.getInt(ARG_SECTION_NUMBER)
-
-            when (tab) {
-                1 -> {
-                    val rootView = inflater!!.inflate(R.layout.fragment_your__songs, container, false)
-
-                    val recyclerView = rootView.findViewById(R.id.list_of_songs) as RecyclerView
-                    recyclerView.setHasFixedSize(true)
-                    recyclerView.layoutManager=LinearLayoutManager(context)
-                    recyclerView.itemAnimator = DefaultItemAnimator()
-                    val client = RetrofitBuilder().myWebService
-                    val call = getDataBodyCall(client)
-                    val search_song = rootView.findViewById(R.id.search_song) as EditText
-                    getAllSongs(recyclerView, call, search_song)
-                    val add_song_button = rootView.findViewById(R.id.add_song_button) as Button
-                    AddNewSong(add_song_button)
-                    return rootView
-                }
-
-                2 -> {
-                }
-            }
-
-            return null
-        }
-
-        private fun AddNewSong(add_song_button: Button) {
-            add_song_button.setOnClickListener { show() }
-        }
-
-        private fun show() {
-            val getContentIntent = FileUtils.createGetContentIntent()
-
-            val intent = Intent.createChooser(getContentIntent, "Select a File")
-            startActivityForResult(intent, REQUEST_CHOOSER)
-        }
-
-        override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-            when (requestCode) {
-                REQUEST_CHOOSER -> if (resultCode == Activity.RESULT_OK) {
-                    if (data != null) {
-                        // Get the URI of the selected file
-                        val uri = data.data
-                        try {
-                            // Get the file path from the URI
-                            val path = FileUtils.getPath(activity, uri)
-
-                        } catch (e: Exception) {
-
-                        }
-
-                    }
-                }
-            }
-
-
-            super.onActivityResult(requestCode, resultCode, data)
-        }
-
-        private fun getDataBodyCall(client: MyWebService): Call<DataBody> {
-            return client.allProduct
-        }
-
-        private fun getAllSongs(recyclerView: RecyclerView, call: Call<DataBody>, editText: EditText){
-
-            call.enqueue(object : Callback<DataBody> {
-                override fun onResponse(call: Call<DataBody>, response: Response<DataBody>) {
-
-                    if (response.isSuccessful) {
-
-                        val list_of_products = ArrayList(response.body().getProduct())
-
-                        if (list_of_products != null) {
-                            val productAdapter = ProductAdapter(activity.applicationContext, list_of_products,recyclerView)
-                            recyclerView.adapter=productAdapter
-                            recyclerView.adapter = productAdapter
-                            SearchSong(editText, productAdapter)
-                            //wyswietlenie listy
-
-                        }
-                    }
-                }
-
-                override fun onFailure(call: Call<DataBody>, t: Throwable) {
-
-                }
-            })
-
-        }
-
-
-
-
-
-        private fun getListView(listView: ListView) {
-            listView.setOnItemClickListener { adapterView, view, i, l ->
-
-                    val pidOfSong = (view.findViewById(R.id.pid) as TextView).text.toString()
-                    val intent = Intent(context, TextsActivity::class.java)
-                    intent.putExtra(PID_OF_SONG, pidOfSong)
-                    startActivity(intent)
-                }
-            }
-
-
-
-        private fun createURL(title_of_song: String): String {
-            var title_of_song = title_of_song
-            title_of_song = "http://pawelnbd.ayz.pl/pdf/$title_of_song.php"
-            return title_of_song
-        }
-
-
-        private fun SearchSong(search_song: EditText, productAdapter: ProductAdapter) {
-            search_song.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(s: CharSequence, i: Int, i1: Int, i2: Int) {
-                }
-
-                override fun onTextChanged(s: CharSequence, i: Int, i1: Int, i2: Int) {
-
-                    productAdapter.getFilter().filter(s)
-
-                }
-
-                override fun afterTextChanged(editable: Editable) {
-
-                }
-            })
-        }
-
-        companion object {
-
-            val PID_OF_SONG = "PID_OF_SONG"
-            private val ARG_SECTION_NUMBER = "section_number"
-            private val REQUEST_CHOOSER = 1234
-
-            /**
-             * Returns a new instance of this fragment for the given section
-             * number.
-             */
-
-            fun newInstance(sectionNumber: Int): Fragment1 {
-                val fragment = Fragment1()
-                val args = Bundle()
-                args.putInt(ARG_SECTION_NUMBER, sectionNumber)
-                fragment.arguments = args
-                return fragment
-            }
-        }
-
-    }//  SaveAdapter saveAdapter = new SaveAdapter();
-
-
-    inner class SectionsPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
-
-        override fun getItem(position: Int): Fragment {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a Fragment1 (defined as a static inner class below).
-            return Fragment1.newInstance(position + 1)
-        }
-
-        override fun getCount(): Int {
-            // Show 2 total pages.
-            return 2
-        }
-
-        override fun getPageTitle(position: Int): CharSequence? {
-            when (position) {
-                0 -> return "Twoje utwory"
-                1 -> return "Wyszukaj"
-            }
-            return null
-        }
     }
 
 

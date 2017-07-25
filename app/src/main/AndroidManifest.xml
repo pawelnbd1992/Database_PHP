@@ -26,10 +26,6 @@
         <activity
             android:name=".view.product.EditProductActivity"
             android:label="Edit sProduct" />
-        <activity
-            android:name=".view.TextsActivity"
-            android:label=""
-            android:parentActivityName=".view.YourSongsActivity"/>
         <activity android:name=".view.main.MainActivity" />
         <activity
             android:name=".view.YourSongsActivity"
@@ -38,9 +34,6 @@
             android:noHistory="true"
             android:windowSoftInputMode="stateVisible|adjustNothing"
             >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".view.TextsActivity" />
             <meta-data
                android:name="android.app.searchable"
                 android:resource="@xml/searchable">

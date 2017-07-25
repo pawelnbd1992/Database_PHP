@@ -1,40 +1,46 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context=".view.YourSongsActivity$Fragment1"
+    tools:context=".view.YourSongsActivity$SongListFragment"
     android:layout_height="match_parent"
     android:layout_width="match_parent">
 
     <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-        android:orientation="horizontal">
-                    <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/search_song"
-                    android:hint="Search song..."
-                    android:layout_weight="1"
 
-                    />
+    android:orientation="horizontal">
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/search_song"
+        android:hint="Search song..."
+        android:layout_weight="1"
 
-                    <Button
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Dodaj piosenkę "
-                        android:id="@+id/add_song_button"
-                        android:layout_weight="1"/>
+        />
 
-    </LinearLayout>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dodaj piosenkę "
+        android:id="@+id/add_song_button"
+        android:layout_weight="1"/>
+
+
+</LinearLayout>
+
+
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/list_of_songs"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+
 
         >
 

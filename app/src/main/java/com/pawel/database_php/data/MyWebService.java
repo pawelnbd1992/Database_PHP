@@ -14,7 +14,7 @@ public interface MyWebService {
 
     @GET("get_product_details.php")
    // Call<DataBody> getProductDetails();
-     Call<DataBody> getProductDetails(@Query("pid")String pid);
+     Call<DataBody> getProductDetails(@Query("pid")Integer pid);
 
 
     @GET("get_all_product.php")

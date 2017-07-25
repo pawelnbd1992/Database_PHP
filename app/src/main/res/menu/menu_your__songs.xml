@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".view.YourSongsActivity">
     <item
-        android:id="@+id/search_song"
+        android:id="@+id/search_song_searchview"
         android:title="@string/search"
         android:icon="@drawable/ic_action_search"
         app:showAsAction="collapseActionView|ifRoom"
