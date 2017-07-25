@@ -1,5 +1,4 @@
 package com.pawel.database_php.view
-
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.view.MenuItemCompat
@@ -28,7 +27,7 @@ class YourSongsActivity : AppCompatActivity(), SearchView.OnQueryTextListener, S
 
         return true;
     }
-
+///xz
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
